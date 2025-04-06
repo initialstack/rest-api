@@ -12,7 +12,7 @@ abstract class Command extends SimpleDTO
     /**
      * Defines validation rules for the command.
      *
-     * @return array Validation rules.
+     * @return array
      */
     public function rules(): array
     {
@@ -22,7 +22,7 @@ abstract class Command extends SimpleDTO
     /**
      * Specifies default values for the command.
      *
-     * @return array Default values.
+     * @return array
      */
     public function defaults(): array
     {
@@ -32,7 +32,7 @@ abstract class Command extends SimpleDTO
     /**
      * Defines data type casts for the command.
      *
-     * @return array Data type casts.
+     * @return array
      */
     protected function casts(): array
     {

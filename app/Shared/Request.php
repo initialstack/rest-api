@@ -29,7 +29,6 @@ abstract class Request extends FormRequest
      * Handle failed validation.
      *
      * @param \Illuminate\Contracts\Validation\Validator $validator
-     * @return void
      */
     protected function failedValidation(Validator $validator): void
     {
@@ -58,6 +57,6 @@ abstract class Request extends FormRequest
      */
     public function isFilled(): bool
     {
-        return !empty($this->all());
+        return !empty($this->request->all());
     }
 }

@@ -13,10 +13,10 @@ abstract class PermissionRepositoryAbstract implements PermissionRepositoryInter
     /**
      * Constructs a new PermissionRepositoryAbstract instance.
      *
-     * Initializes the storage and memory repositories for permission management.
+     * Initializes storage and memory repositories for permissions.
      *
-     * @param \App\Contracts\Interface\Repositories\Storage\PermissionStorageRepositoryInterface $storageRepository
-     * @param \App\Contracts\Interface\Repositories\Memory\PermissionMemoryRepositoryInterface $memoryRepository
+     * @param PermissionStorageRepositoryInterface $storageRepository
+     * @param PermissionMemoryRepositoryInterface $memoryRepository
      */
     protected function __construct(
         protected PermissionStorageRepositoryInterface $storageRepository,
@@ -26,23 +26,52 @@ abstract class PermissionRepositoryAbstract implements PermissionRepositoryInter
     }
 
     /**
-     * Initializes the memory repository by populating it from the storage repository if it is empty.
+     * Checks if the memory repository is empty.
+     *
+     * @return bool
      */
-    protected function initializeMemoryRepository(): void
+    private function isMemoryRepositoryEmpty(): bool
     {
-        // If the memory repository is empty, populate it from the storage repository.
-        if (count(value: $this->memoryRepository->all()) === 0) {
-            $collection = collect(value: $this->storageRepository->all());
+        return count(value: $this->memoryRepository->all()) === 0;
+    }
 
-            // Save each permission from the storage repository into the memory repository.
-            $collection->each(callback: function(Permission $permission): void {
+    /**
+     * Retrieves all permissions from the storage repository.
+     *
+     * @return array
+     */
+    private function getAllPermissionsFromStorage(): array
+    {
+        return $this->storageRepository->all();
+    }
+
+    /**
+     * Saves a collection of permissions to the memory repository.
+     *
+     * @param array $permissions
+     */
+    private function savePermissionsToMemory(array $permissions): void
+    {
+        collect(value: $permissions)->each(
+            callback: function (Permission $permission): void {
                 $this->memoryRepository->save(permission: $permission);
-            });
+            }
+        );
+    }
+
+    /**
+     * Initializes the memory repository if it is empty.
+     */
+    private function initializeMemoryRepository(): void
+    {
+        if ($this->isMemoryRepositoryEmpty()) {
+            $permissions = $this->getAllPermissionsFromStorage();
+            $this->savePermissionsToMemory(permissions: $permissions);
         }
     }
 
     /**
-     * Retrieves all permissions.
+     * Retrieves a collection of all permissions from the repository.
      *
      * Must be implemented by child classes.
      *
@@ -53,8 +82,6 @@ abstract class PermissionRepositoryAbstract implements PermissionRepositoryInter
     /**
      * Retrieves a permission by their ID.
      *
-     * Must be implemented by child classes.
-     *
      * @param \Ramsey\Uuid\UuidInterface $id
      * @return \App\Entities\Permission|null
      */
@@ -62,8 +89,6 @@ abstract class PermissionRepositoryAbstract implements PermissionRepositoryInter
 
     /**
      * Retrieves a permission by their slug.
-     *
-     * Must be implemented by child classes.
      *
      * @param string $slug
      * @return \App\Entities\Permission|null

@@ -3,11 +3,11 @@
 namespace App\Repositories\Storage\Cached;
 
 use App\Entities\Permission;
-use App\Repositories\Storage\Transactions\PermissionTransactionRepository;
 use Illuminate\Support\Facades\Cache;
 use App\Contracts\Interface\Repositories\Storage\PermissionStorageRepositoryInterface;
-use Ramsey\Uuid\UuidInterface;
 use App\Repositories\Storage\Queries\PermissionQueryRepository;
+use App\Repositories\Storage\Transactions\PermissionTransactionRepository;
+use Ramsey\Uuid\UuidInterface;
 use Carbon\Carbon;
 
 final class PermissionCachedRepository implements PermissionStorageRepositoryInterface
@@ -20,8 +20,8 @@ final class PermissionCachedRepository implements PermissionStorageRepositoryInt
     /**
      * Constructs a new PermissionCachedRepository instance.
      *
-     * @param \App\Repositories\Storage\Queries\PermissionQueryRepository $permissionQuery
-     * @param \App\Repositories\Storage\Transactions\PermissionTransactionRepository $permissionTransaction
+     * @param PermissionQueryRepository $permissionQuery
+     * @param PermissionTransactionRepository $permissionTransaction
      */
     public function __construct(
         private PermissionQueryRepository $permissionQuery,
@@ -29,7 +29,7 @@ final class PermissionCachedRepository implements PermissionStorageRepositoryInt
     ) {}
 
     /**
-     * Retrieves all permissions from the cache or database if not cached, using a flexible caching strategy.
+     * Cache key for storing all permissions.
      *
      * @return array
      */
@@ -69,7 +69,7 @@ final class PermissionCachedRepository implements PermissionStorageRepositoryInt
     }
 
     /**
-     * Saves a permission using the transactional repository and invalidates the cache if necessary.
+     * Saves a permission and invalidates cache if necessary.
      *
      * @param \App\Entities\Permission $permission
      */
@@ -83,7 +83,7 @@ final class PermissionCachedRepository implements PermissionStorageRepositoryInt
     }
 
     /**
-     * Removes a permission using the transactional repository and invalidates the cache if necessary.
+     * Removes a permission and invalidates cache if necessary.
      *
      * @param \App\Entities\Permission $permission
      */
@@ -95,5 +95,4 @@ final class PermissionCachedRepository implements PermissionStorageRepositoryInt
             Cache::forget(key: self::CACHE_PERMISSION_ALL_KEY);
         }
     }
-}
 }

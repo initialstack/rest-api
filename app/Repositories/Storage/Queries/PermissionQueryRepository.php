@@ -3,31 +3,23 @@
 namespace App\Repositories\Storage\Queries;
 
 use App\Entities\Permission;
-use App\Contracts\Interface\Repositories\Storage\PermissionStorageRepositoryInterface;
 use Doctrine\ORM\{EntityManagerInterface, ORMException};
+use App\Contracts\Interface\Repositories\Storage\PermissionStorageRepositoryInterface;
 use Ramsey\Uuid\UuidInterface;
 
 final class PermissionQueryRepository implements PermissionStorageRepositoryInterface
 {
     /**
-     * The Doctrine entity manager instance.
-     *
-     * @var EntityManagerInterface
-     */
-    private EntityManagerInterface $entityManager;
-
-    /**
      * Constructs a new PermissionQueryRepository instance.
      *
-     * @param EntityManagerInterface $entityManager
+     * @param \Doctrine\ORM\EntityManagerInterface $entityManager
      */
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
+    public function __construct(
+        private EntityManagerInterface $entityManager
+    ) {}
 
     /**
-     * Retrieves all permissions from the database, ordered by creation date in descending order.
+     * Retrieves all permissions ordered by creation date in descending order.
      *
      * @return array
      */

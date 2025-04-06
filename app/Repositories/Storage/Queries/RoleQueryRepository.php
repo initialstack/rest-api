@@ -3,31 +3,23 @@
 namespace App\Repositories\Storage\Queries;
 
 use App\Entities\Role;
-use App\Contracts\Interface\Repositories\Storage\RoleStorageRepositoryInterface;
 use Doctrine\ORM\{EntityManagerInterface, ORMException};
+use App\Contracts\Interface\Repositories\Storage\RoleStorageRepositoryInterface;
 use Ramsey\Uuid\UuidInterface;
 
 final class RoleQueryRepository implements RoleStorageRepositoryInterface
 {
     /**
-     * The Doctrine entity manager instance.
-     *
-     * @var EntityManagerInterface
-     */
-    private EntityManagerInterface $entityManager;
-
-    /**
      * Constructs a new RoleQueryRepository instance.
      *
-     * @param EntityManagerInterface $entityManager
+     * @param \Doctrine\ORM\EntityManagerInterface $entityManager
      */
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
+    public function __construct(
+        private EntityManagerInterface $entityManager
+    ) {}
 
     /**
-     * Retrieves all roles from the database, ordered by creation date in descending order.
+     * Retrieves all roles ordered by creation date in descending order.
      *
      * @return array
      */

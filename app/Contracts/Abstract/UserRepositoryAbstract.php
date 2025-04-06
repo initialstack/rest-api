@@ -13,10 +13,10 @@ abstract class UserRepositoryAbstract implements UserRepositoryInterface
     /**
      * Constructs a new UserRepositoryAbstract instance.
      *
-     * Initializes the storage and memory repositories for user management.
+     * Initializes storage and memory repositories for users.
      *
-     * @param \App\Contracts\Interface\Repositories\Storage\UserStorageRepositoryInterface $storageRepository
-     * @param \App\Contracts\Interface\Repositories\Memory\UserMemoryRepositoryInterface $memoryRepository
+     * @param UserStorageRepositoryInterface $storageRepository
+     * @param UserMemoryRepositoryInterface $memoryRepository
      */
     protected function __construct(
         protected UserStorageRepositoryInterface $storageRepository,
@@ -26,25 +26,52 @@ abstract class UserRepositoryAbstract implements UserRepositoryInterface
     }
 
     /**
-     * Initializes the memory repository by populating it from the storage repository if it is empty.
+     * Checks if the memory repository is empty.
+     *
+     * @return bool
      */
-    protected function initializeMemoryRepository(): void
+    private function isMemoryRepositoryEmpty(): bool
     {
-        // If the memory repository is empty, populate it from the storage repository.
-        if (count(value: $this->memoryRepository->all()) === 0) {
-            $collection = collect(value: $this->storageRepository->all());
+        return count(value: $this->memoryRepository->all()) === 0;
+    }
 
-            // Save each user from the storage repository into the memory repository.
-            $collection->each(callback: function(User $user): void {
+    /**
+     * Retrieves all users from the storage repository.
+     *
+     * @return array
+     */
+    private function getAllUsersFromStorage(): array
+    {
+        return $this->storageRepository->all();
+    }
+
+    /**
+     * Saves a collection of users to the memory repository.
+     *
+     * @param array $users
+     */
+    private function saveUsersToMemory(array $users): void
+    {
+        collect(value: $users)->each(
+            callback: function (User $user): void {
                 $this->memoryRepository->save(user: $user);
-            });
+            }
+        );
+    }
+
+    /**
+     * Initializes the memory repository if it is empty.
+     */
+    private function initializeMemoryRepository(): void
+    {
+        if ($this->isMemoryRepositoryEmpty()) {
+            $users = $this->getAllUsersFromStorage();
+            $this->saveUsersToMemory(users: $users);
         }
     }
 
     /**
-     * Retrieves all users.
-     *
-     * Must be implemented by child classes.
+     * Retrieves a collection of all users from the repository.
      *
      * @return \App\Entities\User[]
      */
@@ -62,8 +89,6 @@ abstract class UserRepositoryAbstract implements UserRepositoryInterface
 
     /**
      * Retrieves a user by their email.
-     *
-     * Must be implemented by child classes.
      *
      * @param string $email
      * @return \App\Entities\User|null

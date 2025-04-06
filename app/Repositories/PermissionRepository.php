@@ -13,8 +13,8 @@ final class PermissionRepository extends PermissionRepositoryAbstract
     /**
      * Constructs a new PermissionRepository instance.
      *
-     * @param \App\Contracts\Interface\Repositories\Storage\PermissionStorageRepositoryInterface $storageRepository
-     * @param \App\Contracts\Interface\Repositories\Memory\PermissionMemoryRepositoryInterface $memoryRepository
+     * @param PermissionStorageRepositoryInterface $storageRepository
+     * @param PermissionMemoryRepositoryInterface $memoryRepository
      */
     public function __construct(
         protected PermissionStorageRepositoryInterface $storageRepository,
@@ -39,9 +39,9 @@ final class PermissionRepository extends PermissionRepositoryAbstract
             return $memory;
         }
 
-        $cached = $this->storageRepository->all();
+        $storage = $this->storageRepository->all();
 
-        return $cached;
+        return $storage;
     }
 
     /**
@@ -58,9 +58,9 @@ final class PermissionRepository extends PermissionRepositoryAbstract
             return $memory;
         }
 
-        $cached = $this->storageRepository->findById(id: $id);
+        $storage = $this->storageRepository->findById(id: $id);
 
-        return $cached;
+        return $storage;
     }
 
     /**
@@ -77,9 +77,9 @@ final class PermissionRepository extends PermissionRepositoryAbstract
             return $memory;
         }
 
-        $cached = $this->storageRepository->findBySlug(slug: $slug);
+        $storage = $this->storageRepository->findBySlug(slug: $slug);
         
-        return $cached;
+        return $storage;
     }
 
     /**

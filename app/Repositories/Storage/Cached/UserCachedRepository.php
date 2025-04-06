@@ -3,11 +3,11 @@
 namespace App\Repositories\Storage\Cached;
 
 use App\Entities\User;
-use App\Repositories\Storage\Transactions\UserTransactionRepository;
 use Illuminate\Support\Facades\Cache;
 use App\Contracts\Interface\Repositories\Storage\UserStorageRepositoryInterface;
-use Ramsey\Uuid\UuidInterface;
 use App\Repositories\Storage\Queries\UserQueryRepository;
+use App\Repositories\Storage\Transactions\UserTransactionRepository;
+use Ramsey\Uuid\UuidInterface;
 use Carbon\Carbon;
 
 final class UserCachedRepository implements UserStorageRepositoryInterface
@@ -20,8 +20,8 @@ final class UserCachedRepository implements UserStorageRepositoryInterface
     /**
      * Constructs a new UserCachedRepository instance.
      *
-     * @param \App\Repositories\Storage\Queries\UserQueryRepository $userQuery
-     * @param \App\Repositories\Storage\Transactions\UserTransactionRepository $userTransaction
+     * @param UserQueryRepository $userQuery
+     * @param UserTransactionRepository $userTransaction
      */
     public function __construct(
         private UserQueryRepository $userQuery,
@@ -29,7 +29,7 @@ final class UserCachedRepository implements UserStorageRepositoryInterface
     ) {}
 
     /**
-     * Retrieves all users from the cache or database if not cached, using a flexible caching strategy.
+     * Cache key for storing all users.
      *
      * @return array
      */
@@ -69,7 +69,7 @@ final class UserCachedRepository implements UserStorageRepositoryInterface
     }
 
     /**
-     * Saves a user using the transactional repository and invalidates the cache if necessary.
+     * Saves a user and invalidates cache if necessary.
      *
      * @param \App\Entities\User $user
      */
@@ -83,7 +83,7 @@ final class UserCachedRepository implements UserStorageRepositoryInterface
     }
 
     /**
-     * Removes a user using the transactional repository and invalidates the cache if necessary.
+     * Removes a user and invalidates cache if necessary.
      *
      * @param \App\Entities\User $user
      */

@@ -7,15 +7,6 @@ use Illuminate\Http\Response;
 
 final readonly class RegisterResponder
 {
-    /**
-     * Generates a response based on the registration result.
-     *
-     * If registration is successful, returns a success message with a 200 status.
-     * Otherwise, returns a failure message with a 400 status.
-     *
-     * @param bool $result
-     * @return \App\Interaction\Responses\MessageResponse
-     */
 	public function respond(bool $result): MessageResponse
     {
         if ($result) {

@@ -13,8 +13,8 @@ final class RoleRepository extends RoleRepositoryAbstract
     /**
      * Constructs a new RoleRepository instance.
      *
-     * @param \App\Contracts\Interface\Repositories\Storage\RoleStorageRepositoryInterface $storageRepository
-     * @param \App\Contracts\Interface\Repositories\Memory\RoleMemoryRepositoryInterface $memoryRepository
+     * @param RoleStorageRepositoryInterface $storageRepository
+     * @param RoleMemoryRepositoryInterface $memoryRepository
      */
     public function __construct(
         protected RoleStorageRepositoryInterface $storageRepository,
@@ -39,9 +39,9 @@ final class RoleRepository extends RoleRepositoryAbstract
             return $memory;
         }
 
-        $cached = $this->storageRepository->all();
+        $storage = $this->storageRepository->all();
 
-        return $cached;
+        return $storage;
     }
 
     /**
@@ -58,9 +58,9 @@ final class RoleRepository extends RoleRepositoryAbstract
             return $memory;
         }
 
-        $cached = $this->storageRepository->findById(id: $id);
+        $storage = $this->storageRepository->findById(id: $id);
 
-        return $cached;
+        return $storage;
     }
 
     /**
@@ -77,9 +77,9 @@ final class RoleRepository extends RoleRepositoryAbstract
             return $memory;
         }
 
-        $cached = $this->storageRepository->findBySlug(slug: $slug);
+        $storage = $this->storageRepository->findBySlug(slug: $slug);
         
-        return $cached;
+        return $storage;
     }
 
     /**

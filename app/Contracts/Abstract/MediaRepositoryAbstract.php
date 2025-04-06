@@ -13,10 +13,10 @@ abstract class MediaRepositoryAbstract implements MediaRepositoryInterface
     /**
      * Constructs a new MediaRepositoryAbstract instance.
      *
-     * Initializes the storage and memory repositories for media management.
+     * Initializes storage and memory repositories for media.
      *
-     * @param \App\Contracts\Interface\Repositories\Storage\MediaStorageRepositoryInterface $storageRepository
-     * @param \App\Contracts\Interface\Repositories\Memory\MediaMemoryRepositoryInterface $memoryRepository
+     * @param MediaStorageRepositoryInterface $storageRepository
+     * @param MediaMemoryRepositoryInterface $memoryRepository
      */
     protected function __construct(
         protected MediaStorageRepositoryInterface $storageRepository,
@@ -26,25 +26,52 @@ abstract class MediaRepositoryAbstract implements MediaRepositoryInterface
     }
 
     /**
-     * Initializes the memory repository by populating it from the storage repository if it is empty.
+     * Checks if the memory repository is empty.
+     *
+     * @return bool
      */
-    protected function initializeMemoryRepository(): void
+    private function isMemoryRepositoryEmpty(): bool
     {
-        // If the memory repository is empty, populate it from the storage repository.
-        if (count(value: $this->memoryRepository->all()) === 0) {
-            $collection = collect(value: $this->storageRepository->all());
+        return count(value: $this->memoryRepository->all()) === 0;
+    }
 
-            // Save each media item from the storage repository into the memory repository.
-            $collection->each(callback: function(Media $media): void {
+    /**
+     * Retrieves all media from the storage repository.
+     *
+     * @return array
+     */
+    private function getAllMediaFromStorage(): array
+    {
+        return $this->storageRepository->all();
+    }
+
+    /**
+     * Saves a collection of media to the memory repository.
+     *
+     * @param array $media
+     */
+    private function saveMediaToMemory(array $media): void
+    {
+        collect(value: $media)->each(
+            callback: function (Media $media): void {
                 $this->memoryRepository->save(media: $media);
-            });
+            }
+        );
+    }
+
+    /**
+     * Initializes the memory repository if it is empty.
+     */
+    private function initializeMemoryRepository(): void
+    {
+        if ($this->isMemoryRepositoryEmpty()) {
+            $media = $this->getAllMediaFromStorage();
+            $this->saveMediaToMemory(media: $media);
         }
     }
 
     /**
-     * Retrieves all media.
-     *
-     * Must be implemented by child classes.
+     * Retrieves a collection of all media from the repository.
      *
      * @return \App\Entities\Media[]
      */
@@ -53,8 +80,6 @@ abstract class MediaRepositoryAbstract implements MediaRepositoryInterface
     /**
      * Retrieves media by their ID.
      *
-     * Must be implemented by child classes.
-     *
      * @param \Ramsey\Uuid\UuidInterface $id
      * @return \App\Entities\Media|null
      */
@@ -62,8 +87,6 @@ abstract class MediaRepositoryAbstract implements MediaRepositoryInterface
 
     /**
      * Retrieves media associated with a specific entity ID.
-     *
-     * Must be implemented by child classes.
      *
      * @param string $entityId
      * @return \App\Entities\Media[]

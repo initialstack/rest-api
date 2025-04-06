@@ -13,8 +13,8 @@ final class MediaRepository extends MediaRepositoryAbstract
     /**
      * Constructs a new MediaRepository instance.
      *
-     * @param \App\Contracts\Interface\Repositories\Storage\MediaStorageRepositoryInterface $storageRepository
-     * @param \App\Contracts\Interface\Repositories\Memory\MediaMemoryRepositoryInterface $memoryRepository
+     * @param MediaStorageRepositoryInterface $storageRepository
+     * @param MediaMemoryRepositoryInterface $memoryRepository
      */
     public function __construct(
         protected MediaStorageRepositoryInterface $storageRepository,
@@ -39,9 +39,9 @@ final class MediaRepository extends MediaRepositoryAbstract
             return $memory;
         }
 
-        $cached = $this->storageRepository->all();
+        $storage = $this->storageRepository->all();
 
-        return $cached;
+        return $storage;
     }
 
     /**
@@ -58,9 +58,9 @@ final class MediaRepository extends MediaRepositoryAbstract
             return $memory;
         }
 
-        $cached = $this->storageRepository->findById(id: $id);
+        $storage = $this->storageRepository->findById(id: $id);
 
-        return $cached;
+        return $storage;
     }
 
     /**
@@ -79,11 +79,11 @@ final class MediaRepository extends MediaRepositoryAbstract
             return $memory;
         }
         
-        $cached = $this->storageRepository->findByEntityId(
+        $storage = $this->storageRepository->findByEntityId(
             entityId: $entityId
         );
         
-        return $cached;
+        return $storage;
     }
 
     /**

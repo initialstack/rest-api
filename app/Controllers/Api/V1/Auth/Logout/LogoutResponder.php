@@ -8,15 +8,6 @@ use Illuminate\Http\Response;
 
 final readonly class LogoutResponder
 {
-    /**
-     * Generates a response based on the logout result.
-     *
-     * If the logout is successful, returns a success message with a 200 status.
-     * Otherwise, returns a failure message with a 400 status.
-     *
-     * @param bool $result
-     * @return \App\Interaction\Responses\MessageResponse
-     */
 	public function respond(bool $result): MessageResponse
     {
         if ($result) {

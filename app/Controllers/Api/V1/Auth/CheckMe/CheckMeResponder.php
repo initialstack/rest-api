@@ -8,15 +8,6 @@ use Illuminate\Http\Response;
 
 final readonly class CheckMeResponder
 {
-	/**
-     * Generates a response based on the provided data.
-     *
-     * If data is present, returns a ResourceResponse with the CheckMeResource.
-     * Otherwise, returns a "User Not Found" message with a 404 status.
-     *
-     * @param mixed $data
-     * @return \App\Interaction\Responses\ResourceResponse
-     */
 	public function respond(mixed $data): ResourceResponse
 	{
 		if (!blank(value: $data)) {

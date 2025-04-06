@@ -30,69 +30,44 @@ use App\Repositories\UserRepository;
 
 final class RepositoryServiceProvider extends ServiceProvider
 {
+   $roles = [
+        RoleMemoryRepositoryInterface::class => RoleMemoryRepository::class,
+        RoleStorageRepositoryInterface::class => RoleCachedRepository::class,
+        RoleRepositoryInterface::class => RoleRepository::class,
+    ];
+
+    $permissions = [
+        PermissionMemoryRepositoryInterface::class => PermissionMemoryRepository::class,
+        PermissionStorageRepositoryInterface::class => PermissionCachedRepository::class,
+        PermissionRepositoryInterface::class => PermissionRepository::class,
+    ];
+
+    $media = [
+        MediaMemoryRepositoryInterface::class => MediaMemoryRepository::class,
+        MediaStorageRepositoryInterface::class => MediaCachedRepository::class,
+        MediaRepositoryInterface::class => MediaRepository::class,
+    ];
+
+    $users = [
+        UserMemoryRepositoryInterface::class => UserMemoryRepository::class,
+        UserStorageRepositoryInterface::class => UserCachedRepository::class,
+        UserRepositoryInterface::class => UserRepository::class,
+    ];
+
     /**
      * Register any application services.
      */
     public function register(): void
     {
-        $this->app->bind(
-            abstract: MediaMemoryRepositoryInterface::class,
-            concrete: MediaMemoryRepository::class
-        );
+        $bindings = [
+            ...$this->roles,
+            ...$this->permissions,
+            ...$this->media,
+            ...$this->users
+        ];
 
-        $this->app->bind(
-            abstract: MediaStorageRepositoryInterface::class,
-            concrete: MediaCachedRepository::class
-        );
-
-        $this->app->bind(
-            abstract: PermissionMemoryRepositoryInterface::class,
-            concrete: PermissionMemoryRepository::class
-        );
-
-        $this->app->bind(
-            abstract: PermissionStorageRepositoryInterface::class,
-            concrete: PermissionCachedRepository::class
-        );
-
-        $this->app->bind(
-            abstract: RoleMemoryRepositoryInterface::class,
-            concrete: RoleMemoryRepository::class
-        );
-
-        $this->app->bind(
-            abstract: RoleStorageRepositoryInterface::class,
-            concrete: RoleCachedRepository::class
-        );
-
-        $this->app->bind(
-            abstract: UserMemoryRepositoryInterface::class,
-            concrete: UserMemoryRepository::class
-        );
-
-        $this->app->bind(
-            abstract: UserStorageRepositoryInterface::class,
-            concrete: UserCachedRepository::class
-        );
-
-        $this->app->bind(
-            abstract: RoleRepositoryInterface::class,
-            concrete: RoleRepository::class
-        );
-        
-        $this->app->bind(
-            abstract: PermissionRepositoryInterface::class,
-            concrete: PermissionRepository::class
-        );
-        
-        $this->app->bind(
-            abstract: MediaRepositoryInterface::class,
-            concrete: MediaRepository::class
-        );
-        
-        $this->app->bind(
-            abstract: UserRepositoryInterface::class,
-            concrete: UserRepository::class
-        );
+        foreach ($bindings as $abstract => $concrete) {
+            $this->app->bind(abstract: $abstract, concrete: $concrete);
+        }
     }
 }

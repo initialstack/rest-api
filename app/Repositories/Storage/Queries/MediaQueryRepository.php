@@ -3,26 +3,23 @@
 namespace App\Repositories\Storage\Queries;
 
 use App\Entities\Media;
-use App\Contracts\Interface\Repositories\Storage\MediaStorageRepositoryInterface;
 use Doctrine\ORM\{EntityManagerInterface, ORMException};
+use App\Contracts\Interface\Repositories\Storage\MediaStorageRepositoryInterface;
 use Ramsey\Uuid\UuidInterface;
 
 final class MediaQueryRepository implements MediaStorageRepositoryInterface
 {
-    private EntityManagerInterface $entityManager;
-
     /**
      * Constructs a new MediaQueryRepository instance.
      *
-     * @param Doctrine\ORM\EntityManagerInterface $entityManager
+     * @param \Doctrine\ORM\EntityManagerInterface $entityManager
      */
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
+    public function __construct(
+        private EntityManagerInterface $entityManager
+    ) {}
 
     /**
-     * Retrieves all media from the database, ordered by creation date in descending order.
+     * Retrieves all media ordered by creation date in descending order.
      *
      * @return array
      */
@@ -52,7 +49,7 @@ final class MediaQueryRepository implements MediaStorageRepositoryInterface
     }
 
     /**
-     * Finds media by entity ID in the database, ordered by creation date in descending order.
+     * Finds media by entity ID, ordered by creation date (descending).
      *
      * @param string $entityId
      * @return array

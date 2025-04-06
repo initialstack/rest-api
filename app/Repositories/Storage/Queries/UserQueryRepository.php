@@ -3,31 +3,23 @@
 namespace App\Repositories\Storage\Queries;
 
 use App\Entities\User;
-use App\Contracts\Interface\Repositories\Storage\UserStorageRepositoryInterface;
 use Doctrine\ORM\{EntityManagerInterface, ORMException};
+use App\Contracts\Interface\Repositories\Storage\UserStorageRepositoryInterface;
 use Ramsey\Uuid\UuidInterface;
 
 final class UserQueryRepository implements UserStorageRepositoryInterface
 {
     /**
-     * The Doctrine entity manager instance.
-     *
-     * @var EntityManagerInterface
-     */
-    private EntityManagerInterface $entityManager;
-
-    /**
      * Constructs a new UserQueryRepository instance.
      *
-     * @param EntityManagerInterface $entityManager
+     * @param \Doctrine\ORM\EntityManagerInterface $entityManager
      */
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
+    public function __construct(
+        private EntityManagerInterface $entityManager
+    ) {}
 
     /**
-     * Retrieves all users from the database, ordered by creation date in descending order.
+     * Retrieves all users ordered by creation date in descending order.
      *
      * @return array
      */

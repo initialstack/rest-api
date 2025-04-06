@@ -25,7 +25,7 @@ final class TokenResponse implements Responsable
      * Converts the response to a JSON response.
      *
      * @param mixed $request
-     * @return JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function toResponse($request): JsonResponse
     {

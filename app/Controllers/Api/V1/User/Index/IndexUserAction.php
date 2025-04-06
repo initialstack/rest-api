@@ -11,7 +11,6 @@ use Spatie\RouteAttributes\Attributes\Route;
 use App\Responses\ResourceResponse;
 
 #[Prefix(prefix: 'v1')]
-#[Middleware(middleware: 'auth:api')]
 final class IndexUserAction extends Action
 {
 	private readonly QueryBusInterface $queryBus;

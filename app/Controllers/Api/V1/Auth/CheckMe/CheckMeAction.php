@@ -14,30 +14,13 @@ use App\Responses\ResourceResponse;
 #[Middleware(middleware: 'auth:api')]
 final class CheckMeAction extends Action
 {
-	/**
-     * Query bus instance for executing queries.
-     */
     private readonly QueryBusInterface $queryBus;
 
-    /**
-     * Constructs a new CheckMeAction instance.
-     *
-     * Initializes the query bus for handling queries.
-     *
-     * @param \App\Contracts\Interface\Buses\QueryBusInterface $queryBus
-     */
     public function __construct(QueryBusInterface $queryBus)
     {
         $this->queryBus = $queryBus;
     }
-
-    /**
-     * Handles GET requests to the "Check Me" endpoint.
-     *
-     * Retrieves the current authenticated user and returns a response.
-     *
-     * @return \App\Interaction\Responses\ResourceResponse
-     */
+    
 	#[Route(methods: ['GET'], uri: '/check-me')]
 	public function __invoke(): ResourceResponse
 	{

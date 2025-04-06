@@ -3,11 +3,11 @@
 namespace App\Repositories\Storage\Cached;
 
 use App\Entities\Media;
-use App\Repositories\Storage\Transactions\MediaTransactionRepository;
 use Illuminate\Support\Facades\Cache;
 use App\Contracts\Interface\Repositories\Storage\MediaStorageRepositoryInterface;
-use Ramsey\Uuid\UuidInterface;
 use App\Repositories\Storage\Queries\MediaQueryRepository;
+use App\Repositories\Storage\Transactions\MediaTransactionRepository;
+use Ramsey\Uuid\UuidInterface;
 use Carbon\Carbon;
 
 final class MediaCachedRepository implements MediaStorageRepositoryInterface
@@ -20,8 +20,8 @@ final class MediaCachedRepository implements MediaStorageRepositoryInterface
     /**
      * Constructs a new MediaCachedRepository instance.
      *
-     * @param \App\Repositories\Storage\Queries\MediaQueryRepository $mediaQuery
-     * @param \App\Repositories\Storage\Transactions\MediaTransactionRepository $mediaTransaction
+     * @param MediaQueryRepository $mediaQuery
+     * @param MediaTransactionRepository $mediaTransaction
      */
     public function __construct(
         private MediaQueryRepository $mediaQuery,
@@ -29,7 +29,7 @@ final class MediaCachedRepository implements MediaStorageRepositoryInterface
     ) {}
 
     /**
-     * Retrieves all media from the cache or database if not cached, using a flexible caching strategy.
+     * Retrieves all media using a caching strategy.
      *
      * @return array
      */
@@ -65,11 +65,13 @@ final class MediaCachedRepository implements MediaStorageRepositoryInterface
      */
     public function findByEntityId(string $entityId): array
     {
-        return $this->mediaQuery->findByEntityId(entityId: $entityId);
+        return $this->mediaQuery->findByEntityId(
+            entityId: $entityId
+        );
     }
 
     /**
-     * Saves a media using the transactional repository and invalidates the cache if necessary.
+     * Saves a media and invalidates cache if necessary.
      *
      * @param \App\Entities\Media $media
      */
@@ -83,7 +85,7 @@ final class MediaCachedRepository implements MediaStorageRepositoryInterface
     }
 
     /**
-     * Removes a media using the transactional repository and invalidates the cache if necessary.
+     * Removes a media and invalidates cache if necessary.
      *
      * @param \App\Entities\Media $media
      */

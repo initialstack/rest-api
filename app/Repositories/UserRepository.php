@@ -3,9 +3,9 @@
 namespace App\Repositories;
 
 use Ramsey\Uuid\UuidInterface;
-use App\Contracts\Abstract\UserRepositoryAbstract;
 use App\Contracts\Interface\Repositories\Storage\UserStorageRepositoryInterface;
 use App\Contracts\Interface\Repositories\Memory\UserMemoryRepositoryInterface;
+use App\Contracts\Abstract\UserRepositoryAbstract;
 use App\Entities\User;
 
 final class UserRepository extends UserRepositoryAbstract
@@ -13,8 +13,8 @@ final class UserRepository extends UserRepositoryAbstract
     /**
      * Constructs a new UserRepository instance.
      *
-     * @param \App\Contracts\Interface\Repositories\Storage\UserStorageRepositoryInterface $storageRepository
-     * @param \App\Contracts\Interface\Repositories\Memory\UserMemoryRepositoryInterface $memoryRepository
+     * @param UserStorageRepositoryInterface $storageRepository
+     * @param UserMemoryRepositoryInterface $memoryRepository
      */
     public function __construct(
         protected UserStorageRepositoryInterface $storageRepository,
@@ -42,9 +42,9 @@ final class UserRepository extends UserRepositoryAbstract
             return $memory;
         }
 
-        $cached = $this->storageRepository->all();
+        $storage = $this->storageRepository->all();
 
-        return $cached;
+        return $storage;
     }
 
     /**
@@ -61,9 +61,9 @@ final class UserRepository extends UserRepositoryAbstract
             return $memory;
         }
 
-        $cached = $this->storageRepository->findById(id: $id);
+        $storage = $this->storageRepository->findById(id: $id);
 
-        return $cached;
+        return $storage;
     }
 
     /**
@@ -80,9 +80,9 @@ final class UserRepository extends UserRepositoryAbstract
             return $memory;
         }
 
-        $cached = $this->storageRepository->findByEmail(email: $email);
+        $storage = $this->storageRepository->findByEmail(email: $email);
         
-        return $cached;
+        return $storage;
     }
 
     /**

@@ -3,11 +3,11 @@
 namespace App\Repositories\Storage\Cached;
 
 use App\Entities\Role;
-use App\Repositories\Storage\Transactions\RoleTransactionRepository;
 use Illuminate\Support\Facades\Cache;
 use App\Contracts\Interface\Repositories\Storage\RoleStorageRepositoryInterface;
-use Ramsey\Uuid\UuidInterface;
 use App\Repositories\Storage\Queries\RoleQueryRepository;
+use App\Repositories\Storage\Transactions\RoleTransactionRepository;
+use Ramsey\Uuid\UuidInterface;
 use Carbon\Carbon;
 
 final class RoleCachedRepository implements RoleStorageRepositoryInterface
@@ -20,8 +20,8 @@ final class RoleCachedRepository implements RoleStorageRepositoryInterface
     /**
      * Constructs a new RoleCachedRepository instance.
      *
-     * @param \App\Repositories\Storage\Queries\RoleQueryRepository $roleQuery
-     * @param \App\Repositories\Storage\Transactions\RoleTransactionRepository $roleTransaction
+     * @param RoleQueryRepository $roleQuery
+     * @param RoleTransactionRepository $roleTransaction
      */
     public function __construct(
         private RoleQueryRepository $roleQuery,
@@ -29,7 +29,7 @@ final class RoleCachedRepository implements RoleStorageRepositoryInterface
     ) {}
 
     /**
-     * Retrieves all roles from the cache or database if not cached, using a flexible caching strategy.
+     * Cache key for storing all roles.
      *
      * @return array
      */
@@ -69,7 +69,7 @@ final class RoleCachedRepository implements RoleStorageRepositoryInterface
     }
 
     /**
-     * Saves a role using the transactional repository and invalidates the cache if necessary.
+     * Saves a role and invalidates cache if necessary.
      *
      * @param \App\Entities\Role $role
      */
@@ -83,7 +83,7 @@ final class RoleCachedRepository implements RoleStorageRepositoryInterface
     }
 
     /**
-     * Removes a role using the transactional repository and invalidates the cache if necessary.
+     * Removes a role and invalidates cache if necessary.
      *
      * @param \App\Entities\Role $role
      */
