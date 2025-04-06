@@ -3,7 +3,7 @@
 
 ## Overview
 
-This is an example web application built with Laravel, utilizing Doctrine ORM. It incorporates design patterns such as Collection-Oriented Repository, Persistence-Oriented Repository, CQRS (Command Query Responsibility Segregation), Action-Domain-Responder, Decorator, and JWT authentication.
+This example web application is built with Laravel and utilizes Doctrine ORM. It incorporates design patterns such as the Collection-Oriented Repository, Persistence-Oriented Repository, CQRS (Command Query Responsibility Segregation), Action-Domain-Responder, Decorator, and JWT authentication.
 
 ## Requirements
 
@@ -21,13 +21,13 @@ $ make all
 
 If your device does not have the g++ compiler installed, you can deploy manually:
 
-\# Build the project
+\# Build and start containers
 
 ```
 $ docker compose up --build -d --remove-orphans
 ```
 
-\# Start the build (in case any container fails to start during the build)
+\# Restart containers (if any fail during build)
 
 ```
 $ docker compose up -d
@@ -71,12 +71,11 @@ $ docker compose exec app php artisan storage:link
 
 ## Features
 
-- **Collection-Oriented Repository**: Simplifies data access by treating data as collections.
-- **Persistence-Oriented Repository**: Focuses on data persistence logic.
-- **CQRS**: Separates read and write operations for better scalability.
-- **Action-Domain-Responder**: Enhances request handling with a clear domain logic separation.
-- **Decorator**: Allows for flexible extension of functionalities without altering core code.
-- **JWT Authentication**: Provides secure token-based authentication.
+- **Collection-Oriented Repository**: Simplifies data access using collection-like structures.
+- **Persistence-Oriented Repository**: Manages data persistence operations like save, update, and delete.
+- **CQRS**: Separates read/write operations for scalability.
+- **Action-Domain-Responder**: Separates domain logic from presentation.
+- **Decorator Pattern**: Extends functionality without altering core code.
 
 ## Contributing
 
