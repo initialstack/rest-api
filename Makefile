@@ -32,7 +32,7 @@ env-prepare:
 
 # Install Composer dependencies
 composer-install:
-	composer install
+	docker compose exec app composer install
 
 # Generate application key
 key-generate:
