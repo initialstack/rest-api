@@ -7,6 +7,7 @@ x-environment: &environment
 
 services:
   app:
+    <<: *environment
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -28,6 +29,7 @@ services:
       - app-network
 
   caddy:
+    <<: *environment
     image: caddy:latest
     restart: always
     ports:
@@ -42,6 +44,7 @@ services:
       - app-network
 
   postgres:
+    <<: *environment
     image: postgres:latest
     restart: always
     environment:
@@ -54,12 +57,14 @@ services:
       - app-network
 
   redis:
+    <<: *environment
     image: redis:alpine
     restart: always
     networks:
       - app-network
 
   mailhog:
+    <<: *environment
     image: mailhog/mailhog:latest
     ports:
       - "8025:8025"
