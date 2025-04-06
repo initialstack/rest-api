@@ -30,25 +30,25 @@ use App\Repositories\UserRepository;
 
 final class RepositoryServiceProvider extends ServiceProvider
 {
-   $roles = [
+    private array $roles = [
         RoleMemoryRepositoryInterface::class => RoleMemoryRepository::class,
         RoleStorageRepositoryInterface::class => RoleCachedRepository::class,
         RoleRepositoryInterface::class => RoleRepository::class,
     ];
 
-    $permissions = [
+    private array $permissions = [
         PermissionMemoryRepositoryInterface::class => PermissionMemoryRepository::class,
         PermissionStorageRepositoryInterface::class => PermissionCachedRepository::class,
         PermissionRepositoryInterface::class => PermissionRepository::class,
     ];
 
-    $media = [
+    private array $media = [
         MediaMemoryRepositoryInterface::class => MediaMemoryRepository::class,
         MediaStorageRepositoryInterface::class => MediaCachedRepository::class,
         MediaRepositoryInterface::class => MediaRepository::class,
     ];
 
-    $users = [
+    private array $users = [
         UserMemoryRepositoryInterface::class => UserMemoryRepository::class,
         UserStorageRepositoryInterface::class => UserCachedRepository::class,
         UserRepositoryInterface::class => UserRepository::class,
