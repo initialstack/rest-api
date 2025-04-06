@@ -2,7 +2,6 @@
 ==============================
 
 ## Overview
------------
 
 This is an example web application built with Laravel, utilizing Doctrine ORM. It incorporates design patterns such as Collection-Oriented Repository, Persistence-Oriented Repository, CQRS (Command Query Responsibility Segregation), Action-Domain-Responder, Decorator, and JWT authentication.
 
@@ -21,7 +20,6 @@ $ make all
 ```
 
 ## Features
---------
 
 - **Collection-Oriented Repository**: Simplifies data access by treating data as collections.
 - **Persistence-Oriented Repository**: Focuses on data persistence logic.
@@ -31,7 +29,6 @@ $ make all
 - **JWT Authentication**: Provides secure token-based authentication.
 
 ## Contributing
-------------
 
 Contributions are welcome! Here's how you can contribute:
 
@@ -40,6 +37,5 @@ Contributions are welcome! Here's how you can contribute:
 3. **Submit a Pull Request**: Send your changes for review.
 
 ## License
--------
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
