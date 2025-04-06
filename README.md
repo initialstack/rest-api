@@ -19,6 +19,56 @@ To deploy the project, simply run the following command:
 $ make all
 ```
 
+If your device does not have the g++ compiler installed, you can deploy manually:
+
+\# Build the project
+
+```
+$ docker compose up --build -d --remove-orphans
+```
+
+\# Start the build (in case any container fails to start during the build)
+
+```
+$ docker compose up -d
+```
+
+\# Copy .env.example to .env
+
+```
+$ cp .env.example .env
+```
+
+\# Install dependencies
+
+```
+$ docker compose exec app composer install
+```
+
+\# Generate application key
+
+```
+docker compose exec app php artisan key:generate
+```
+
+\# Generate JWT key
+
+```
+$ docker compose exec app php artisan jwt:secret
+```
+
+\# Run migrations and seed the database
+
+```
+$ docker compose exec app php artisan migrate:fresh --seed
+```
+
+\# Create a symbolic link
+
+```
+$ docker compose exec app php artisan storage:link
+```
+
 ## Features
 
 - **Collection-Oriented Repository**: Simplifies data access by treating data as collections.
