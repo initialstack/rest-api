@@ -81,9 +81,9 @@ $ docker compose exec app php artisan storage:link
 
 Contributions are welcome! Here's how you can contribute:
 
-1. **Fork the Repository**: Create a fork of this project.
-2. **Create a Branch**: Make changes in a new branch.
-3. **Submit a Pull Request**: Send your changes for review.
+1. **Fork the repository**: create a fork of this project.
+2. **Create a branch**: make changes in a new branch.
+3. **Submit a pull request**: send your changes for review.
 
 ## License
 
