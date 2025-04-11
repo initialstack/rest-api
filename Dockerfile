@@ -40,7 +40,6 @@ WORKDIR /var/www/html
 
 # Copy php.ini file without duplicate extensions
 COPY ./docker/php/php.ini /usr/local/etc/php/php.ini
-
 COPY ./docker/php/www.conf /usr/local/etc/php-fpm.d/www.conf
 
 # Настройка размеров буфера UDP
@@ -60,7 +59,7 @@ RUN chown -R appuser:appuser /var/www/html
 RUN [ -d /var/www/html/storage/logs ] || mkdir -p /var/www/html/storage/logs && chmod -R 775 /var/www/html/storage/logs/
 
 # Copy project files
-COPY --chown=user:user . /var/www/html
+COPY --chown=appuser:appuser . /var/www/html
 
 # Switch user
 USER appuser

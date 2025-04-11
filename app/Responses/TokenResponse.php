@@ -44,13 +44,12 @@ final class TokenResponse implements Responsable
         ];
 
         if ($this->token !== null) {
+            $ttl = config(key: 'auth.guards.api.ttl');
             $response['data']['access_token'] = __(
                 key: $this->token
             );
             $response['data']['token_type'] = 'bearer';
-            $response['data']['expires_in'] = auth(
-                guard: 'api'
-            )->factory()->getTTL() * 60;
+            $response['data']['expires_in'] = $ttl * 60;
         }
 
         return new JsonResponse(

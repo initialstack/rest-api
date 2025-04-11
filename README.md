@@ -1,4 +1,4 @@
-# Base Laravel API using Doctrine
+# Base Laravel API using Doctrine ORM
 ==============================
 
 ## Overview

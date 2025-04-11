@@ -17,7 +17,7 @@ abstract class Process
     /**
      * Initializes a new process instance.
      *
-     * @param \App\Shared\Request  $request
+     * @param \App\Shared\Request $request
      * @param \App\Shared\Command $command
      */
     protected function __construct(

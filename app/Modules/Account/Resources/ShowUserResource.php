@@ -18,22 +18,8 @@ final class ShowUserResource extends JsonResource
     {
         return [
             'id' => $this->getId(),
-            'avatars' => $this->getMedia()->isEmpty() ? null : array_map(
-                callback: function (Media $media): array {
-                    return [
-                        'id' => $media->getId(),
-                        'file_path' => Storage::url(path: $media->getFilePath()),
-                        'datetime' => [
-                            'created_at' => $media->getCreatedAt()->format(
-                                format: 'Y-m-d H:i:s'
-                            ),
-                            'updated_at' => $media->getUpdatedAt()->format(
-                                format: 'Y-m-d H:i:s'
-                            ),
-                        ],
-                    ];
-                },
-                array: $this->getMedia()->toArray()
+            'avatars' => $this->getMedia()->isEmpty() ? null : Storage::url(
+                path: $this->getMedia()->first()->getFilePath() ?? null
             ),
             'first_name' => $this->getFirstName(),
             'last_name' => $this->getLastName(),

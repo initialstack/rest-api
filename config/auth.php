@@ -39,6 +39,8 @@ return [
         'api' => [
             'driver' => 'jwt',
             'provider' => 'users',
+            'hash' => false,
+            'ttl' => env('JWT_TOKEN_TTL', 60)
         ],
         'web' => [
             'driver' => 'session',

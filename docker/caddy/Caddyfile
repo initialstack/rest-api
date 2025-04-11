@@ -1,4 +1,4 @@
-https://localhost {
+:443 {
 	tls /var/www/html/certs/localhost.pem /var/www/html/certs/localhost-key.pem
 	root * /var/www/html/public
 

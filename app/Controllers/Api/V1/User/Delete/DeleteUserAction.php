@@ -12,6 +12,7 @@ use Spatie\RouteAttributes\Attributes\Route;
 use App\Responses\MessageResponse;
 
 #[Prefix(prefix: 'v1')]
+#[Middleware(middleware: 'auth:api')]
 final class DeleteUserAction extends Action
 {
 	private readonly ProcessBusInterface $processBus;

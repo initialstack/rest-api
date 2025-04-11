@@ -21,7 +21,7 @@ final class Permission extends Entity
     #[ORM\Column(type: 'uuid', unique: true)]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
-    private UuidInterface $id;
+    private PermissionInterface $id;
 
     /**
      * The name of the permission.

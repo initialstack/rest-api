@@ -29,7 +29,7 @@ final class CommandBus implements CommandBusInterface
     /**
      * Dispatches a command and returns the result.
      *
-     * @param \App\Shared\Command $command
+     * @param Command $command
      * @return mixed
      */
     public function send(Command $command): mixed
