@@ -18,6 +18,7 @@ npm-debug.log
 yarn-error.log
 supervisord.log
 supervisord.pid
+yarn.lock
 /auth.json
 /.fleet
 /.idea
